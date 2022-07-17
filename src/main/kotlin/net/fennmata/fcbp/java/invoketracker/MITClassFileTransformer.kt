@@ -20,7 +20,6 @@ import java.security.ProtectionDomain
 // TODO check if COMPUTE_FRAMES ClassWriter flag is not excessive
 // TODO check if EXPAND_FRAMES ClassReader flag is not excessive
 // TODO implement more flexible classfile debug-dumping capabilities
-// TODO handle constructors with the super constructor calls differently
 object MITClassFileTransformer : ClassFileTransformer {
 
     override fun transform(
@@ -55,14 +54,14 @@ object MITClassFileTransformer : ClassFileTransformer {
     ) : ClassVisitor(Opcodes.ASM9, cv) {
 
         override fun visitMethod(
-            access: Int,
+            a: Int,
             name: String,
-            descriptor: String,
-            signature: String?,
-            exceptions: Array<out String>?
+            d: String,
+            s: String?,
+            es: Array<out String>?
         ): MethodVisitor {
-            val mv = super.visitMethod(access, name, descriptor, signature, exceptions)
-            return MITMethodNode(mv, access, className, name, descriptor, signature, exceptions)
+            val mv = super.visitMethod(a, name, d, s, es)
+            return if (name == "<init>") mv else MITMethodNode(mv, a, className, name, d, s, es)
         }
 
     }
