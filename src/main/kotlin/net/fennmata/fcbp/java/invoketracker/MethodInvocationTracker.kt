@@ -1,19 +1,27 @@
 package net.fennmata.fcbp.java.invoketracker
 
-// TODO implement actual JVM method invocation tracking
+import java.util.concurrent.ConcurrentHashMap
+
 // TODO implement generating a dependency with this object only
 // TODO implement less memory-intensive method tags
 object MethodInvocationTracker {
 
+    private val callStackFramesCounters: MutableMap<String, Int> = ConcurrentHashMap()
+
+    @JvmStatic
+    fun isMethodInvoked(methodTag: String): Boolean = methodTag in callStackFramesCounters
+
+    @JvmStatic
+    fun countMethodCallStackFrames(methodTag: String): Int = callStackFramesCounters.getOrDefault(methodTag, 0)
+
     @JvmStatic
     fun onMethodEntry(methodTag: String) {
-        println("detected method entry: $methodTag")
+        callStackFramesCounters.merge(methodTag, 1, Int::plus)
     }
 
     @JvmStatic
     fun onMethodExit(methodTag: String) {
-        println("detected method exit: $methodTag")
-
+        callStackFramesCounters.computeIfPresent(methodTag) { _, counter -> counter.dec().takeIf { it > 0 } }
     }
 
 }
