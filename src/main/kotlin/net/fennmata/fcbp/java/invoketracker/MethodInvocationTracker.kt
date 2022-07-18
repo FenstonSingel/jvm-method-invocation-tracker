@@ -24,4 +24,13 @@ object MethodInvocationTracker {
         callStackFramesCounters.computeIfPresent(methodTag) { _, counter -> counter.dec().takeIf { it > 0 } }
     }
 
+    /**
+     * This method should only be used in test environments.
+     */
+    @JvmStatic
+    @Synchronized
+    fun clear() {
+        callStackFramesCounters.clear()
+    }
+
 }

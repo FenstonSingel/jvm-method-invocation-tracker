@@ -17,6 +17,8 @@ dependencies {
     implementation("org.ow2.asm:asm:9.3")
     implementation("org.ow2.asm:asm-commons:9.3")
     implementation("org.ow2.asm:asm-util:9.3")
+    testImplementation(platform("org.junit:junit-bom:5.8.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks {
@@ -34,6 +36,13 @@ tasks {
 
     shadowJar {
         relocate("org.objectweb.asm", "net.fennmata.fcbp.java.invoketracker.asm")
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 
 }
