@@ -1,4 +1,4 @@
-package net.fennmata.fcbp.java.invoketracker.tests;
+package net.fennmata.fcbp.java.invoketracker.testbed;
 
 @SuppressWarnings({"unused", "ClassInitializerMayBeStatic"})
 public class InitializationBytecodeExamples {

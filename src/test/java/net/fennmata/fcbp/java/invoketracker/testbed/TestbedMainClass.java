@@ -1,4 +1,4 @@
-package net.fennmata.fcbp.java.invoketracker.tests;
+package net.fennmata.fcbp.java.invoketracker.testbed;
 
 // TODO write actual functional tests for the JVM method invocation tracker
 @SuppressWarnings("unused")
