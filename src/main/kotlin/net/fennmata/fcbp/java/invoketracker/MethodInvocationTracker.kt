@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 // TODO implement generating a dependency with this object only
 // TODO implement less memory-intensive method tags
+// TODO rewrite the Java agent to use this as a class to get rid of clear()
 object MethodInvocationTracker {
 
     private val callStackFramesCounters: MutableMap<String, Int> = ConcurrentHashMap()
